@@ -1,0 +1,14 @@
+
+### 
+GET http://localhost:3003/api/blogs
+
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "My second blog",
+  "author": "eddu fraguío",
+  "url": "http://bloglist.com/my-second-blog",
+  "likes": 10
+}
