@@ -43,6 +43,25 @@ test("unique identifier property of blog posts is called id", async () => {
   assert.strictEqual(blog._id, undefined);
 });
 
+test("POST to /api/blogs creates a new blog", async () => {
+  const newBlog = {
+    title: "My third blog",
+    author: "Author 1",
+    url: "http://bloglist.com/my-third-blog",
+    likes: 5,
+  };
+
+  await api
+    .post("/api/blogs")
+    .send(newBlog)
+    .expect(201)
+    .expect("Content-Type", /application\/json/);
+
+  const blogs = await Blog.find({});
+  assert.strictEqual(blogs.length, initialBlogs.length + 1);
+  assert.ok(blogs.some((b) => b.title === "My third blog"));
+});
+
 after(async () => {
   await mongoose.connection.close();
 });
