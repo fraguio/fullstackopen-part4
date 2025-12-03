@@ -112,6 +112,20 @@ test("deleting an existing note", async () => {
   await api.delete(`/api/blogs/${response.body.id}`).expect(204);
 });
 
+test("updating likes of an existing blog", async () => {
+  const newLikes = 7;
+  const response = await api.get("/api/blogs");
+  const updatedBlog = await api
+    .put(`/api/blogs/${response.body[0].id}`)
+    .send({
+      likes: newLikes,
+    })
+    .expect(200)
+    .expect("Content-Type", /application\/json/);
+
+  assert.strictEqual(updatedBlog.body.likes, newLikes);
+});
+
 after(async () => {
   await mongoose.connection.close();
 });

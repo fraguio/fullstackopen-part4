@@ -1,4 +1,4 @@
-DELETE http://localhost:3003/api/blogs/693014f622d5d27088b3cc5b
+DELETE http://localhost:3003/api/blogs/69302a9dca9c764b67f67949
 
 ### 
 GET http://localhost:3003/api/blogs
@@ -9,7 +9,15 @@ Content-Type: application/json
 
 {
   "title": "My fourth blog",
-  "author": "author 4",
+  "author": "Author 4",
   "url": "http://bloglist.com/my-fourth-blog",
   "likes": 10
+}
+
+###
+PUT http://localhost:3003/api/blogs/693066bc1b871b56fe5d7873
+Content-Type: application/json
+
+{
+  "likes": 24
 }
