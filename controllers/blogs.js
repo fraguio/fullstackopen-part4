@@ -1,6 +1,15 @@
 const blogsRouter = require("express").Router();
 const Blog = require("../models/blog");
 
+blogsRouter.delete("/:id", async (request, response) => {
+    const res = await Blog.findByIdAndDelete(request.params.id);
+    if (res) {
+      response.status(204).end();
+    } else {
+      response.status(404).end();
+    }
+});
+
 blogsRouter.get("/", async (request, response) => {
   const blogs = await Blog.find({});
   response.json(blogs);

@@ -97,6 +97,21 @@ test("title and url properties are required.", async () => {
     .expect("Content-Type", /application\/json/);
 });
 
+test("deleting an existing note", async () => {
+  const response = await api
+    .post("/api/blogs")
+    .send({
+      title: "My sixth blog",
+      author: "Author 6",
+      url: "http://bloglist.com/my-sixth-blog",
+      likes: 20,
+    })
+    .expect(201)
+    .expect("Content-Type", /application\/json/);
+
+  await api.delete(`/api/blogs/${response.body.id}`).expect(204);
+});
+
 after(async () => {
   await mongoose.connection.close();
 });

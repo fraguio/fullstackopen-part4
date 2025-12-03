@@ -1,3 +1,4 @@
+DELETE http://localhost:3003/api/blogs/693014f622d5d27088b3cc5b
 
 ### 
 GET http://localhost:3003/api/blogs
@@ -7,8 +8,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-  "title": "My second blog",
-  "author": "eddu fraguío",
-  "url": "http://bloglist.com/my-second-blog",
+  "title": "My fourth blog",
+  "author": "author 4",
+  "url": "http://bloglist.com/my-fourth-blog",
   "likes": 10
 }
