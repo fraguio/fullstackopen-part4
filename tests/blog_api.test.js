@@ -77,6 +77,26 @@ test("likes property takes the value 0 by default when it is not provided", asyn
   assert.deepStrictEqual(response.body.likes, 0);
 });
 
+test("title and url properties are required.", async () => {
+  await api
+    .post("/api/blogs")
+    .send({
+      author: "Author 5",
+      url: "http://bloglist.com/my-fifth-blog",
+    })
+    .expect(400)
+    .expect("Content-Type", /application\/json/);
+
+  await api
+    .post("/api/blogs")
+    .send({
+      title: "My fifth blog",
+      author: "Author 5",
+    })
+    .expect(400)
+    .expect("Content-Type", /application\/json/);
+});
+
 after(async () => {
   await mongoose.connection.close();
 });
