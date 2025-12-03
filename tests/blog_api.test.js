@@ -62,6 +62,21 @@ test("POST to /api/blogs creates a new blog", async () => {
   assert.ok(blogs.some((b) => b.title === "My third blog"));
 });
 
+test("likes property takes the value 0 by default when it is not provided", async () => {
+  const newBlog = {
+    title: "My fourth blog",
+    author: "Author 4",
+    url: "http://bloglist.com/my-fourth-blog",
+  };
+
+  const response = await api
+    .post("/api/blogs")
+    .send(newBlog)
+    .expect(201)
+    .expect("Content-Type", /application\/json/);
+  assert.deepStrictEqual(response.body.likes, 0);
+});
+
 after(async () => {
   await mongoose.connection.close();
 });
