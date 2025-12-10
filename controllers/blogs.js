@@ -5,9 +5,22 @@ const User = require("../models/user");
 
 blogsRouter.delete("/:id", async (request, response, next) => {
   try {
-    const deleted = await Blog.findByIdAndDelete(request.params.id);
-    if (deleted) {
-      response.status(204).end();
+    const blog = await Blog.findById(request.params.id);
+    if (blog) {
+      const decodedToken = jwt.verify(request.token, process.env.SECRET);
+      if (blog.user.toString() === decodedToken.id.toString()) {
+        await blog.deleteOne();
+        const user = await User.findById(decodedToken.id.toString());
+        user.blogs = user.blogs.filter(
+          (blogId) => blogId.toString() !== request.params.id.toString()
+        );
+        await user.save();
+        response.status(204).end();
+      } else {
+        response
+          .status(401)
+          .json({ error: "user not authorized to delete this blog" });
+      }
     } else {
       response.status(404).end();
     }
