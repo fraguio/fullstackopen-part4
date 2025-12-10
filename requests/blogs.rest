@@ -15,6 +15,17 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiaWQiOiI2OTM4OTRmZmNkNzRlY2UxNTA3MzRjNDMiLCJpYXQiOjE3NjUzNTM3Njl9.C4pVB90WnBk5E7RCGXzZPKbNWWjUMn1oiplA4OSy9BQ
+
+{
+  "title": "My first blog with authentication",
+  "url": "http://bloglist.com/my-fourth-blog",
+  "likes": 36
+}
+
+###
 PUT http://localhost:3003/api/blogs/693066bc1b871b56fe5d7873
 Content-Type: application/json
 
