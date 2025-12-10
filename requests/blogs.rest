@@ -1,6 +1,9 @@
-DELETE http://localhost:3003/api/blogs/69392d6f077f8abf9e70171a
+DELETE http://localhost:3003/api/blogs/69397169ca1a95d476503e2c
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiaWQiOiI2OTM4OTRmZmNkNzRlY2UxNTA3MzRjNDMiLCJpYXQiOjE3NjUzNTM3Njl9.C4pVB90WnBk5E7RCGXzZPKbNWWjUMn1oiplA4OSy9BQ
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIyIiwiaWQiOiI2OTM4OTRmZmNkNzRlY2UxNTA3MzRjNDUiLCJpYXQiOjE3NjUzNzI1NDZ9.IMtu1IkaflgSAFFM2IxuAPZHWKkGRe6aACQkCwKyUXw
+
+
 ### 
 GET http://localhost:3003/api/blogs
 
@@ -21,9 +24,9 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiaWQiOiI2OTM4OTRmZmNkNzRlY2UxNTA3MzRjNDMiLCJpYXQiOjE3NjUzNTM3Njl9.C4pVB90WnBk5E7RCGXzZPKbNWWjUMn1oiplA4OSy9BQ
 
 {
-  "title": "My first blog with authentication",
+  "title": "Another blog with authentication",
   "url": "http://bloglist.com/my-fourth-blog",
-  "likes": 36
+  "likes": 77
 }
 
 ###
