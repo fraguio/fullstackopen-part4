@@ -1,24 +1,20 @@
 const blogsRouter = require("express").Router();
 const Blog = require("../models/blog");
-const jwt = require("jsonwebtoken");
-const User = require("../models/user");
 
 blogsRouter.delete("/:id", async (request, response, next) => {
   try {
+    if (!request.user) {
+      return response.status(401).json({ error: "unauthorized" });
+    }
+
     const blog = await Blog.findById(request.params.id);
 
     if (!blog) {
       return response.status(404).end();
     }
 
-    if (!request.token) {
-      return response.status(401).json({ error: "token missing" });
-    }
-
     if (blog.user.toString() !== request.user.id) {
-      return response
-        .status(401)
-        .json({ error: "user not authorized to delete this blog" });
+      return response.status(401).json({ error: "unauthorized" });
     }
 
     await blog.deleteOne();
@@ -47,6 +43,10 @@ blogsRouter.get("/", async (request, response, next) => {
 
 blogsRouter.post("/", async (request, response, next) => {
   try {
+    if (!request.user) {
+      return response.status(401).json({ error: "unauthorized" });
+    }
+
     const { title, author, url, likes } = request.body;
 
     const user = request.user;
@@ -59,7 +59,9 @@ blogsRouter.post("/", async (request, response, next) => {
       user: user.id,
     });
 
-    const newBlog = await blog.save();
+    const newBlog = await blog
+      .save()
+      .populate("user", { username: 1, name: 1 });
     user.blogs = user.blogs.concat(newBlog.id);
     await user.save();
 
@@ -74,9 +76,8 @@ blogsRouter.put("/:id", async (request, response, next) => {
     const updatedBlog = await Blog.findByIdAndUpdate(
       request.params.id,
       request.body,
-      { new: true }
-    );
-
+      { new: true, runValidators: true, context: "query" }
+    ).populate("user", { username: 1, name: 1 });
     if (updatedBlog) {
       response.status(200).json(updatedBlog).end();
     } else {
